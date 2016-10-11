@@ -456,7 +456,7 @@ function renderRackspace ()
 			$found_racks = array_merge ($found_racks, $rackList);
 			$location_id = $rowInfo['location_id'];
 			$locationIdx = 0;
-			// contains location names in the form of 'grandparent parent child', used for sorting 
+			// contains location names in the form of 'grandparent parent child', used for sorting
 			$locationTree = '';
 			// contains location names as well as links
 			$hrefLocationTree = '';
@@ -1934,7 +1934,39 @@ function renderIPForObject ($object_id)
 
 function renderUserForObject ($object_id)
 {
-   echo "Cada é numero $object_id";
+	function printNewItemTR ()
+	{
+		startPortlet ('Add new');
+		printOpFormIntro ('createObjectUser');
+		echo '<table cellspacing=0 cellpadding=5 align=center>';
+		echo '<tr><th class=tdright>Username</th><td class=tdleft><input type=text size=64 name=username></td>';
+		echo '<tr><th class=tdright>Group</th><td class=tdleft><input type=text size=64 name=group></td></tr>';
+		echo '<tr><th class=tdright>Password</th><td class=tdleft><input type=password size=64 name=password></td></tr>';
+		echo '<tr><td colspan=2>';
+		printImageHREF ('CREATE', 'Add new account', TRUE);
+		echo '</td></tr>';
+		echo '</table></form>';
+		finishPortlet();
+	}
+	if (getConfigVar ('ADDNEW_AT_TOP') == 'yes')
+		printNewItemTR();
+	$accounts = listCells ('user');
+	startPortlet ('Manage existing (' . count ($accounts) . ')');
+	echo '<table cellspacing=0 cellpadding=5 align=center class=widetable>';
+	echo '<tr><th>Username</th><th>Real name</th><th>New password (use old if blank)</th><th>&nbsp;</th></tr>';
+	foreach ($accounts as $account)
+	{
+		printOpFormIntro ('updateUser', array ('user_id' => $account['user_id']));
+		echo "<tr><td><input type=text name=username value='${account['user_name']}' size=16></td>";
+		echo "<td><input type=text name=realname value='${account['user_realname']}' size=24></td>";
+		echo "<td><input type=password name=password size=40></td><td>";
+		printImageHREF ('save', 'Save changes', TRUE);
+		echo '</td></form></tr>';
+	}
+	echo '</table><br>';
+	finishPortlet();
+	if (getConfigVar ('ADDNEW_AT_TOP') != 'yes')
+		printNewItemTR();
 }
 
 // This function is deprecated. Do not rely on its internals,

@@ -49,6 +49,7 @@ $SQLSchema = array
 		'keycolumn' => 'user_id',
 		'ordcolumns' => array ('UserAccount.user_name'),
 	),
+
 	'ipv4net' => array
 	(
 		'table' => 'IPv4Network',
@@ -3435,6 +3436,22 @@ function commitCreateUserAccount ($username, $realname, $password)
 	lastCreated ('user', $user_id);
 	return $user_id;
 }
+
+function commitCreateObjectUser ($objectid, $username, $group, $password)
+{
+	usePreparedInsertBlade
+	(
+		'ObjectUser',
+		array
+		(
+			'object_id' => $objectid,
+			'user_name' => $username,
+			'group_name' => $group,
+			'pwd' => $password,
+		)
+	);
+}
+
 
 function commitUpdateUserAccount ($id, $new_username, $new_realname, $new_password)
 {

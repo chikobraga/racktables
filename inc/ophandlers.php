@@ -1142,6 +1142,19 @@ function createUser ()
 	showFuncMessage (__FUNCTION__, 'OK', array ($username));
 }
 
+function createObjectUser ()
+{
+
+	setFuncMessages (__FUNCTION__, array ('OK' => 5));
+	$username = $_REQUEST['username'];
+	$password = $_REQUEST['password'];
+	$group = $_REQUEST['group'];
+	$objectid = $_REQUEST['object_id'];
+	$user_id = commitCreateObjectUser ($objectid, $username, $group , $password);
+
+	showFuncMessage (__FUNCTION__, 'OK', array ($username));
+}
+
 function updateUser ()
 {
 	setFuncMessages (__FUNCTION__, array ('OK' => 6));
