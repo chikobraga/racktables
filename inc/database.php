@@ -49,7 +49,21 @@ $SQLSchema = array
 		'keycolumn' => 'user_id',
 		'ordcolumns' => array ('UserAccount.user_name'),
 	),
-
+	'objectuser' => array
+	(
+		'table' => 'ObjectUser',
+		'columns' => array
+		(
+			'id' => 'id',
+			'object_id' => 'object_id',
+			'username' => 'user_name',
+			'pwd' => 'pwd',
+			'group_name' => 'group_name',
+			'user_home' => 'user_home',
+		),
+		'keycolumn' => 'id',
+		'ordcolumns' => array ('ObjectUser.id'),
+	),
 	'ipv4net' => array
 	(
 		'table' => 'IPv4Network',
@@ -295,6 +309,12 @@ function getRowInfo ($row_id)
 function getAllRows ()
 {
 	return listCells ('row');
+}
+//Nova funcao para listar objectuser
+function listAllObjectUser ($object_id)
+{
+	$result = usePreparedSelectBlade ('SELECT user_name, group_name, pwd, user_home, user_desc  from ObjectUser where object_id = ? order by id', array ($object_id));
+	return $result->fetchAll (PDO::FETCH_ASSOC);
 }
 
 // Return list of rows directly under a specified location
@@ -3437,7 +3457,7 @@ function commitCreateUserAccount ($username, $realname, $password)
 	return $user_id;
 }
 
-function commitCreateObjectUser ($objectid, $username, $group, $password)
+function commitCreateObjectUser ($objectid, $username, $group, $password, $user_home, $user_desc)
 {
 	usePreparedInsertBlade
 	(
@@ -3448,6 +3468,8 @@ function commitCreateObjectUser ($objectid, $username, $group, $password)
 			'user_name' => $username,
 			'group_name' => $group,
 			'pwd' => $password,
+			'user_home' => $user_home,
+			'user_desc' => $user_desc,
 		)
 	);
 }

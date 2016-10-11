@@ -1150,7 +1150,9 @@ function createObjectUser ()
 	$password = $_REQUEST['password'];
 	$group = $_REQUEST['group'];
 	$objectid = $_REQUEST['object_id'];
-	$user_id = commitCreateObjectUser ($objectid, $username, $group , $password);
+	$user_home = $_REQUEST['user_home'];
+	$user_desc = $_REQUEST['description'];
+	$user_id = commitCreateObjectUser ($objectid, $username, $group , $password, $user_home, $user_desc);
 
 	showFuncMessage (__FUNCTION__, 'OK', array ($username));
 }

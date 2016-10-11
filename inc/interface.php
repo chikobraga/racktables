@@ -1939,34 +1939,38 @@ function renderUserForObject ($object_id)
 		startPortlet ('Add new');
 		printOpFormIntro ('createObjectUser');
 		echo '<table cellspacing=0 cellpadding=5 align=center>';
-		echo '<tr><th class=tdright>Username</th><td class=tdleft><input type=text size=64 name=username></td>';
-		echo '<tr><th class=tdright>Group</th><td class=tdleft><input type=text size=64 name=group></td></tr>';
-		echo '<tr><th class=tdright>Password</th><td class=tdleft><input type=password size=64 name=password></td></tr>';
+		echo '<tr><th class=tdleft>Username</th><td class=tdleft><input type=text size=64 name=username></td>';
+		echo '<tr><th class=tdleft>Group</th><td class=tdleft><input type=text size=64 name=group></td></tr>';
+		echo '<tr><th class=tdleft>Password</th><td class=tdleft><input type=text size=64 name=password></td></tr>';
+		echo '<tr><th class=tdleft>User home</th><td class=tdleft><input type=text size=64 name=user_home></td></tr>';
+		echo '<tr><th class=tdleft>Description</th><td class=tdleft><input type=text size=64 name=description></td></tr>';
 		echo '<tr><td colspan=2>';
 		printImageHREF ('CREATE', 'Add new account', TRUE);
 		echo '</td></tr>';
 		echo '</table></form>';
+
 		finishPortlet();
 	}
 	if (getConfigVar ('ADDNEW_AT_TOP') == 'yes')
 		printNewItemTR();
-	$accounts = listCells ('user');
-	startPortlet ('Manage existing (' . count ($accounts) . ')');
-	echo '<table cellspacing=0 cellpadding=5 align=center class=widetable>';
-	echo '<tr><th>Username</th><th>Real name</th><th>New password (use old if blank)</th><th>&nbsp;</th></tr>';
-	foreach ($accounts as $account)
+
+	
+	$list_objectuser = listAllObjectUser($_REQUEST['object_id']);
+	if (count ($list_objectuser))
 	{
-		printOpFormIntro ('updateUser', array ('user_id' => $account['user_id']));
-		echo "<tr><td><input type=text name=username value='${account['user_name']}' size=16></td>";
-		echo "<td><input type=text name=realname value='${account['user_realname']}' size=24></td>";
-		echo "<td><input type=password name=password size=40></td><td>";
-		printImageHREF ('save', 'Save changes', TRUE);
-		echo '</td></form></tr>';
+		startPortlet('Lista de usuarios');
+
+		echo 'Teste';
+		//foreach ($list_objectuser as $row)
+		//{
+		////	echo "Teste".row['user_name'];
+		//echo 'Teste'.row['user_name'].' Aqui';
+		//}
+	//echo "</tr>";
+	//echo '</table>';
+		finishPortlet();
 	}
-	echo '</table><br>';
-	finishPortlet();
-	if (getConfigVar ('ADDNEW_AT_TOP') != 'yes')
-		printNewItemTR();
+	
 }
 
 // This function is deprecated. Do not rely on its internals,
