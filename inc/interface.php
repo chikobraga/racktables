@@ -1953,23 +1953,34 @@ function renderUserForObject ($object_id)
 	}
 	if (getConfigVar ('ADDNEW_AT_TOP') == 'yes')
 		printNewItemTR();
-
 	
-	$list_objectuser = listAllObjectUser($_REQUEST['object_id']);
-	if (count ($list_objectuser))
-	{
 		startPortlet('Lista de usuarios');
-
-		echo 'Teste';
-		//foreach ($list_objectuser as $row)
-		//{
-		////	echo "Teste".row['user_name'];
-		//echo 'Teste'.row['user_name'].' Aqui';
-		//}
-	//echo "</tr>";
-	//echo '</table>';
+		
+		$lista_usuarios = listAllObjectUser($object_id);
+		echo '<table cellspacing=0 cellpadding=5 align=center>';
+		echo '<tr>';
+ 		echo '<th class=tdleft>Usuário</th>';
+ 		echo '<th class=tdleft>Grupo</th>';
+ 		echo '<th class=tdleft>Password</th>';
+ 		echo '<th class=tdleft>Home</th>';
+ 		echo '<th class=tdleft>Descrição</th>';
+ 		echo '</tr>';
+		foreach ($lista_usuarios as $row)
+		{
+		echo '<tr>';
+		echo '<td class=tdleft>' . $row['user_name'] . '</td>';
+		echo '<td class=tdleft>' . $row['group_name'] . '</td>';
+		echo '<td class=tdleft>' . $row['pwd'] . '</td>';
+		echo '<td class=tdleft>' . $row['user_home'] . '</td>';
+		echo '<td class=tdleft>' . $row['user_desc'] . '</td>';
+		echo '</tr>';
+		//echo '<td class=tdleft>' . $row['user_name'] . '<br>' . $row['pwd'] . '</td>';
+		//echo '<td class="logentry">' . string_insert_hrefs (htmlspecialchars ($row['user_desc'], ENT_NOQUOTES)) . '</td>';
+		//echo "<td class=tdleft>";
+		//echo "</td></tr>\n";
+		}
+		echo '</table>';
 		finishPortlet();
-	}
 	
 }
 
