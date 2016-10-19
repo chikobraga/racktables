@@ -1954,33 +1954,38 @@ function renderUserForObject ($object_id)
 	if (getConfigVar ('ADDNEW_AT_TOP') == 'yes')
 		printNewItemTR();
 	
-		startPortlet('Lista de usuarios');
-		
-		$lista_usuarios = listAllObjectUser($object_id);
-		echo '<table cellspacing=0 cellpadding=5 align=center>';
+	$lista_usuarios = listAllObjectUser($object_id);
+
+	if (! empty ($lista_usuarios)) { 
+		startPortlet('User List');
+		global $nextorder;
+		echo '<table class=cooltable border=0 cellspacing=0 cellpadding=9 align=center>';
 		echo '<tr>';
- 		echo '<th class=tdleft>Usuário</th>';
- 		echo '<th class=tdleft>Grupo</th>';
- 		echo '<th class=tdleft>Password</th>';
- 		echo '<th class=tdleft>Home</th>';
- 		echo '<th class=tdleft>Descrição</th>';
+ 		echo '<th class=tdcenter>Usuário</th>';
+ 		echo '<th class=tdcenter>Grupo</th>';
+ 		echo '<th class=tdcenter>Password</th>';
+ 		echo '<th class=tdcenter>Home</th>';
+ 		echo '<th class=tdcenter>Descrição</th>';
+		echo '<th></th>';
  		echo '</tr>';
+		$order = 'odd';
 		foreach ($lista_usuarios as $row)
 		{
-		echo '<tr>';
-		echo '<td class=tdleft>' . $row['user_name'] . '</td>';
-		echo '<td class=tdleft>' . $row['group_name'] . '</td>';
-		echo '<td class=tdleft>' . $row['pwd'] . '</td>';
-		echo '<td class=tdleft>' . $row['user_home'] . '</td>';
-		echo '<td class=tdleft>' . $row['user_desc'] . '</td>';
-		echo '</tr>';
-		//echo '<td class=tdleft>' . $row['user_name'] . '<br>' . $row['pwd'] . '</td>';
-		//echo '<td class="logentry">' . string_insert_hrefs (htmlspecialchars ($row['user_desc'], ENT_NOQUOTES)) . '</td>';
-		//echo "<td class=tdleft>";
-		//echo "</td></tr>\n";
+			echo "<tr class=row_${order}>";
+			echo '<td class=tdleft>' . $row['user_name'] . '</td>';
+			echo '<td class=tdleft>' . $row['group_name'] . '</td>';
+			echo '<td class=tdleft>' . $row['pwd'] . '</td>';
+			echo '<td class=tdleft>' . $row['user_home'] . '</td>';
+			echo '<td class=tdleft>' . $row['user_desc'] . '</td>';
+			echo "<td class=tdleft> <a name='objuser-${row['id']}' href='".makeHrefProcess(array('op'=>'delObjuser', 'user_id'=>$row['id']))."'>";
+			printImageHREF ('delete', 'Delete this info user');
+			echo '</a></td>';
+			echo '</tr>';
+			$order = $nextorder[$order];
 		}
 		echo '</table>';
 		finishPortlet();
+	}
 	
 }
 

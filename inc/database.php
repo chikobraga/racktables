@@ -313,7 +313,7 @@ function getAllRows ()
 //Nova funcao para listar objectuser
 function listAllObjectUser ($object_id)
 {
-	$result = usePreparedSelectBlade ('SELECT user_name, group_name, pwd, user_home, user_desc  from ObjectUser where object_id = ? order by id', array ($object_id));
+	$result = usePreparedSelectBlade ('SELECT id, user_name, group_name, pwd, user_home, user_desc  from ObjectUser where object_id = ? order by id', array ($object_id));
 	return $result->fetchAll (PDO::FETCH_ASSOC);
 }
 
