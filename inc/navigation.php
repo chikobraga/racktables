@@ -255,6 +255,7 @@ $ophandler['object']['ip']['upd'] = 'updIPAllocation';
 $ophandler['object']['ip']['add'] = 'addIPAllocation';
 $ophandler['object']['ip']['del'] = 'delIPAllocation';
 $ophandler['object']['user']['createObjectUser'] = 'createObjectUser';
+$ophandler['object']['user']['del'] = 'tableHandler';
 $ophandler['object']['edit']['clearSticker'] = 'clearSticker';
 $ophandler['object']['edit']['update'] = 'updateObject';
 $ophandler['object']['edit']['resetObject'] = 'resetObject';

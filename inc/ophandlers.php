@@ -115,6 +115,17 @@ $opspec_list['object-log-del'] = array
 		array ('url_argname' => 'object_id', 'assertion' => 'uint'),
 	),
 );
+//create a new function for del user object
+$opspec_list['object-user-del'] = array
+(
+	'table' => 'ObjectUser',
+	'action' => 'DELETE',
+	'arglist' => array
+	(
+		array ('url_argname' => 'user_id', 'table_colname' => 'id', 'assertion' => 'uint'),
+		array ('url_argname' => 'object_id', 'assertion' => 'uint'),
+	),
+);
 $opspec_list['rack-log-del'] = array
 (
 	'table' => 'ObjectLog',

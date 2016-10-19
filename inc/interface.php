@@ -1954,6 +1954,11 @@ function renderUserForObject ($object_id)
 	if (getConfigVar ('ADDNEW_AT_TOP') == 'yes')
 		printNewItemTR();
 	
+	if ($_REQUEST['op'] == 'delObjuser') {
+		echo "Teste de receber ".$_REQUEST['user_id']." number ";
+		//delObjectUser($_REQUEST['user_id'])
+	}
+
 	$lista_usuarios = listAllObjectUser($object_id);
 
 	if (! empty ($lista_usuarios)) { 
@@ -1977,7 +1982,7 @@ function renderUserForObject ($object_id)
 			echo '<td class=tdleft>' . $row['pwd'] . '</td>';
 			echo '<td class=tdleft>' . $row['user_home'] . '</td>';
 			echo '<td class=tdleft>' . $row['user_desc'] . '</td>';
-			echo "<td class=tdleft> <a name='objuser-${row['id']}' href='".makeHrefProcess(array('op'=>'delObjuser', 'user_id'=>$row['id']))."'>";
+			echo "<td class=tdleft> <a name='objuser-${row['id']}' href='".makeHrefProcess(array('op'=>'del', 'user_id'=>$row['id']))."'>";
 			printImageHREF ('delete', 'Delete this info user');
 			echo '</a></td>';
 			echo '</tr>';

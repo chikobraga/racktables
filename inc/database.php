@@ -310,11 +310,16 @@ function getAllRows ()
 {
 	return listCells ('row');
 }
-//Nova funcao para listar objectuser
+//New function for list all user for one object id
 function listAllObjectUser ($object_id)
 {
 	$result = usePreparedSelectBlade ('SELECT id, user_name, group_name, pwd, user_home, user_desc  from ObjectUser where object_id = ? order by id', array ($object_id));
 	return $result->fetchAll (PDO::FETCH_ASSOC);
+}
+//new function for delete one user the object
+function delObjectUser ($id)
+{
+	usePreparedDeleteBlade ('objectUser', array ('id' => $id));
 }
 
 // Return list of rows directly under a specified location
